@@ -33,3 +33,33 @@ public:
         return true;
     }
 };
+
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map<char, int> m;
+        for (char c : s1)
+            m[c]++;
+        for (int l = 0, r = 0, need = s1.length(); r < s2.length(); r++)
+        {
+            m[s2[r]]--;
+            if (m[s2[r]] >= 0)   need--;
+
+            if (need == 0)
+                return true;
+            if ((r - l) + 1 >= s1.length())
+            {
+                if (m[s2[l]] >= 0)   need++;                
+                m[s2[l]]++;
+                l++;
+            }
+        }
+        return false;
+    }
+};
