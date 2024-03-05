@@ -1,3 +1,25 @@
+#include <string>
+
+#define CLR(N, K)	(N & ~(1<<K))
+#define SET(N, K)	(N | (1<<K))
+#define TEST(N, K) ((N & (1<<K)) != 0)
+#define TGL(N,K) (N ^ (1 << K))
+
+
+void swap(int a, int b)
+{
+    a ^= b;
+    b ^= a;
+    a ^= b;
+}
+
+int toggleBits(int num, int i, int j)
+{
+    // i and j's range : 0-31
+    int mask = (1 << (j - i + 1)) - 1;
+    mask <<= i;
+    return (num ^ mask);
+}
 
 //  Function to check if x is power of 2
 bool isPowerOfTwo(int x)
@@ -83,6 +105,17 @@ void convert_alphabets(void)
         cout << char(ch ^ ' '));        // prints abcdefghijklmnopqrstuvwxyz
     }
 }
+
+
+string convertToBase7(int num) {
+    if (num < 0)
+        return "-" + convertToBase7(-num);
+    if (num < 7)
+        return to_string(num);
+    return convertToBase7(num / 7) + to_string(num % 7);
+    }
+;
+
 
 /*
 
