@@ -5,15 +5,25 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        int ans=0;
-        for(int i=0;i<32;i++){
-            int s=0;
-            for(auto it:nums)
-                s+=it>>i&1;
-            s%=3;
-            ans|=s<<i;
+        // Loner
+        int loner = 0;
+
+        // Iterate over all bits
+        for (int shift = 0; shift < 32; shift++) {
+            int bitSum = 0;
+
+            // For this bit, iterate over all integers
+            for (int num : nums) {
+
+                // Compute the bit of num, and add it to bitSum
+                bitSum += (num >> shift) & 1;
+            }
+
+            // Compute the bit of loner and place it
+            int lonerBit = bitSum % 3;
+            loner = loner | (lonerBit << shift);
         }
-        return ans;
+        return loner;
     }
 };
 
