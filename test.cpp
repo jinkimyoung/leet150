@@ -1065,3 +1065,52 @@ public:
         return nums[l];
     }
 };
+
+
+
+class MyClass {
+    public:
+        int* data;
+        int size;
+
+        MyClass(int size) : size(size) {
+            data = new int[size];
+            for (int i = 0; i < size; ++i)
+                data[i] = i;
+        }
+
+        ~MyClass () {
+            delete[] data;
+            data = nullptr;
+        }
+}
+
+int main() {
+    MyClass obj1(5);
+    MyClass obj2 = obj1;
+
+    return 0;
+}
+
+----
+class MyClass {
+    public:
+        int *x;
+        MyClass(int val) {
+            x = new int(val);
+        }
+        MyClass(const MyClass &obj) {
+            x = new int(*obj.x);
+        }
+        ~MyClass() {
+            delete x;
+        }
+};
+
+----
+
+----
+
+
+
+
