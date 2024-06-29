@@ -24,4 +24,33 @@ public:
     }
 };
 
+// Using Cache
+#include <string>
+#include <vector>
+using namespace std;
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        int m = s.length();
+        vector<bool> dp(m+1, false);
+        dp[m] = true;
 
+        for (int i = s.length(); i >= 0; i--)
+        {
+            if (!dp[i]) continue;
+
+            for (string word : wordDict)
+            {
+                if (i < word.length())
+                    continue;
+
+                if (dp[i - word.length()]) continue;
+
+                if (s.substr(i - word.length(), word.length()) == word)
+                    dp[i - word.length()] = true;
+            }
+        }
+
+        return dp[0];
+    }
+};
