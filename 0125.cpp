@@ -24,25 +24,17 @@ public:
 class Solution {
 public:
     bool isPalindrome(string s) {
-        int start = 0;
-        int end = s.size()-1;
+        int l = 0, r = s.length() - 1;
 
-        while (start < end)
+        while (l < r)
         {
-            if (!isalnum(s[start]))
-            {   start++; 
-                continue;
-            }
-            if (!isalnum(s[end])) 
-            {   end--; 
-                continue;
-            }
+            while (l < r && !isalnum(s[l])) l++;
+            while (l < r && !isalnum(s[r])) r--;
 
-            if (tolower(s[start]) != tolower(s[end])) return false;
-            start++;
-            end--;
+            if (tolower(s[l++]) != tolower(s[r--])) return false;
         }
         return true;
     }
 };
+
 
