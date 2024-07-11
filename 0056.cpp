@@ -1,22 +1,24 @@
+#include <vector>
+#include <algorithm>
+using namespace std;
 
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         vector<vector<int>> ans;
-        if (intervals.size() == 0)  return ans;
-
         sort(intervals.begin(), intervals.end());
-        ans.push_back(intervals[0]);
-        for (int i = 1; i < intervals.size(); i++)
+
+        for (auto cur : intervals)
         {
-            if (ans.back()[1] < intervals[i][0])
-                ans.push_back(intervals[i]);
-            else 
+            if (ans.size() == 0 || ans.back()[1] < cur[0])
+                ans.push_back(cur);
+            else
             {
-                ans.back()[1] = max(ans.back()[1], intervals[i][1]);
+                ans.back()[0] = min(cur[0], ans.back()[0]);
+                ans.back()[1] = max(cur[1], ans.back()[1]);                 
             }
         }
-
         return ans;
     }
 };
+

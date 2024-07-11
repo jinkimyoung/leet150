@@ -75,22 +75,20 @@ public:
         int sum = 0;
         for (int num : nums)
             sum += num;
-        if (abs(target) > sum  || (sum + target) % 2)  return 0;
+        sum += target;
+        if (sum % 2 || sum < 0) return 0;
+        sum = sum >> 0x1;
 
-        sum = (sum + target) >> 0x1;
-        vector<int> dp(sum + 1, 0);
+        vector<int> dp(sum+1, 0);
         dp[0] = 1;
-
         for (int num : nums)
-        {
-            vector<int> newDP(sum + 1, 0);
-            newDP = dp;            
-            for (int i = num; i <= sum; i++)
-                newDP[i] += dp[i-num];
+            for (int i = sum; i >= num; i--)
+                dp[i] = dp[i] + dp[i-num];
 
-            dp = newDP;
-        }
         return dp[sum];
     }
 };
+
+
+
 

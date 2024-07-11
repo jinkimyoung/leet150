@@ -49,24 +49,17 @@ public:
     }
 };
 
-#include <vector>
-using namespace std;
-
 class Solution {
 public:
     int change(int amount, vector<int>& coins) {
         vector<int> dp(amount+1, 0);
+
         dp[0] = 1;
         for (int coin : coins)
-        {
-            vector<int> newDP = dp;
-            for (int i = 1; i <= amount; i++)
-            {
-                if (i >= coin)
-                    newDP[i] += newDP[i-coin];
-            }
-            dp = newDP;
-        }
-        return dp[amount] == INT_MAX ? 0 : dp[amount];
+            for (int i = coin; i <= amount; i++)
+                dp[i] = dp[i] + dp[i-coin];
+        return dp[amount];
     }
 };
+
+

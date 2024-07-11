@@ -2,23 +2,31 @@
 
 
 #include <vector>
-#include <unordered_set>
 using namespace std;
 
 class Solution {
 public:
     bool mergeTriplets(vector<vector<int>>& triplets, vector<int>& target) {
-        unordered_set<int> good;
-        
-        for (int i = 0; i < triplets.size(); i++)
-        {
-            if (triplets[i][0] > target[0] || triplets[i][1] > target[1] || triplets[i][2] > target[2])
-                continue;
+        int x = target[0];
+        int y = target[1];
+        int z = target[2];
 
-            for (int j = 0; j < 3; j++)
-                if (triplets[i][j] == target[j])
-                    good.insert(j);
+        bool foundX = 0;
+        bool foundY = 0;
+        bool foundZ = 0;
+
+        for (const auto& triplet : triplets) {
+            int a = triplet[0];
+            int b = triplet[1];
+            int c = triplet[2];
+
+            if (a <= x && b <= y && c <= z) {
+                if (a == x) foundX = 1;
+                if (b == y) foundY = 1;
+                if (c == z) foundZ = 1;
+            }
         }
-        return good.size() == 3;        
+
+        return foundX && foundY && foundZ;
     }
 };

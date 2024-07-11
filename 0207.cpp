@@ -7,33 +7,33 @@ using namespace std;
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        unordered_map<int, vector<int>> reqs;
-        unordered_set<int>      takes;
+        unordered_map<int, vector<int>> reqs; 
+        unordered_set<int>  visit;
 
-        for (auto pre : prerequisites)
-            reqs[pre[0]].push_back(pre[1]);
-
+        for (auto e : prerequisites)
+            reqs[e[0]].push_back(e[1]);
+        
         for (int i = 0; i < numCourses; i++)
-            if (!dfs(reqs, takes, i))
+            if (!dfs(reqs, visit, i))
                 return false;
+
         return true;
     }
 
-    bool dfs(unordered_map<int, vector<int>> &reqs, unordered_set<int> &takes, int course)
+    bool dfs(unordered_map<int, vector<int>> &reqs, unordered_set<int> &visit, int cur)
     {
-        if (takes.find(course) != takes.end())  return false;
-        if (reqs[course].empty())   return true;
+        if (visit.find(cur) != visit.end()) return false;
+        visit.insert(cur);
 
-        takes.insert(course);
-        for (int i = 0; i < reqs[course].size(); i++)
+        for (int i = 0; i < reqs[cur].size(); i++)
         {
-            int nextCourse = reqs[course][i];
-            if (!dfs(reqs, takes, nextCourse))
-                return false;
+            if (!dfs(reqs, visit, reqs[cur][i]))
+                return false;            
         }
-        takes.erase(course);
-        reqs[course].clear();
+        reqs[cur].clear();
+        visit.erase(cur);
+
         return true;
     }
-
 };
+
