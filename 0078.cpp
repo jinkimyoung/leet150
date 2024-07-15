@@ -12,37 +12,16 @@ public:
         return ans;
     }
 
-    // [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
-    void dfs(vector<int>& nums, int idx, vector<int> &cur, vector<vector<int>> &ans)
+    void dfs(vector<int> &nums, int idx, vector<int> &cur, vector<vector<int>> &res)
     {
-        for (int n : cur)
-            cout << n << " ";
-        cout << endl;
-
-        ans.push_back(cur);
+        res.push_back(cur);
+        
         for (int i = idx; i < nums.size(); i++)
         {
             cur.push_back(nums[i]);
-            dfs(nums, i+1, cur, ans);
+            dfs(nums, i+1, cur,res);    // i+1
             cur.pop_back();
         }
     }
 };
-
-int main(void)
-{
-    Solution s;
-    vector<int> nums = {1,2,3};
-
-    s.subsets(nums);
-    
-    return 0;
-}
-
-
-struct pci_driver {
-	.name = "pcifdafd",
-	.id_table = pci_ids;
-	.probe = my function
-} ;
 
