@@ -20,3 +20,27 @@ public:
         return pow;
     }
 };
+
+
+
+class Solution {
+public:
+    double myPow(double x, int n) {
+        double r = 1;
+        if (n < 0)
+        {
+            x = 1 / x;
+            n = abs(n);
+        }
+
+        while (n)
+        {
+            if (n & 0x1)
+                r = r * x;
+            x = x * x;
+            n = n / 2;
+        }
+        return r;
+    }
+};
+

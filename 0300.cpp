@@ -20,23 +20,23 @@ public:
     }
 };
 
-// Time : O(N * Log N)
 
+// Time : O(N * Log N)
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        vector<int> ans;
+        vector<int> lis;
 
-        for (int i = 0; i < nums.size(); i++)
+        for (int num : nums)
         {
-            if (ans.empty() || ans.back() < nums[i])
-                ans.push_back(nums[i]);
+            if (lis.empty() || lis.back() < num)
+                lis.push_back(num);
             else
             {
-                auto in = lower_bound(ans.begin(), ans.end(), nums[i]);
-                *in = nums[i];
+                auto it = lower_bound(lis.begin(), lis.end(), num);
+                *it = num;
             }
         }
-        return ans.size();
+        return lis.size();
     }
 };

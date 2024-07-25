@@ -26,9 +26,6 @@ public:
 
 
 // Using Cache
-#include <string>
-#include <vector>
-using namespace std;
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
@@ -42,13 +39,15 @@ public:
             
             for (string word : wordDict)
             {
-                if (i - word.length() > s.length()) continue;
-                if (i - word.length() < 0) continue;
-                
-                if (s.substr(i - word.length(), word.length()) == word)
-                    dp[i - word.length()] = true;
+                int n = word.length();
+                if (i - n >= 0)
+                {
+                    if (s.substr(i-n, n) == word)
+                        dp[i-n] = true;
+                }
             }
         }
         return dp[0];
     }
 };
+

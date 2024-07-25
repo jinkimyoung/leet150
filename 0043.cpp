@@ -35,3 +35,30 @@ public:
 };
 
 
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        int m = num1.length(), n = num2.length();
+        vector<int> digit(m+n, 0);
+
+        for (int i = m-1; i >= 0; i--)
+        {
+            for (int j = n-1; j >= 0; j--)
+            {
+                int t = digit[i+j+1] + (num1[i]-'0')*(num2[j]-'0');
+                digit[i+j+1] = t % 10;
+                digit[i+j] += (t/10);
+            }
+        }
+
+        string s;
+        for (int i = 0; i < m+n; i++)
+        {
+            if (!s.empty() || (digit[i] >= 1 && digit[i] <= 9))
+                s.push_back(digit[i]+'0');
+        }
+        return s.length() == 0 ? "0" : s;
+    }
+};
+
+
