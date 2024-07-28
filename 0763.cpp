@@ -7,21 +7,22 @@ using namespace std;
 class Solution {
 public:
     vector<int> partitionLabels(string s) {
-        vector<int> lastIdx(26);
-        for (int i = 0; i < s.length(); i++)
-            lastIdx[s[i] - 'a'] = i;
-
         vector<int> ans;
-        int size = 0, end = 0;
-        for (int i = 0; i < s.length(); i++)
+        int n = s.length(), pos[26] = {0};
+
+        for (int i = 0; i < n; i++)
+            pos[s[i]-'a'] = i;
+        
+        int end = 0, size = 0;
+        for (int i = 0; i < n; i++)
         {
             size++;
-            end = max(end, lastIdx[s[i] - 'a']);
-            if (i == end)
+            end = max(end, pos[s[i]-'a']);
+            if (end == i)
             {
                 ans.push_back(size);
                 size = 0;
-            } 
+            }
         }
         return ans;        
     }

@@ -5,32 +5,27 @@ using namespace std;
 class MinStack {
 public:
     stack<int> stk;
-    stack<pair<int, int>> minStk;
+    stack<int> minStk;
 
     MinStack() {
     }
     
     void push(int val) {
         stk.push(val);
-        if (minStk.empty() || val < minStk.top().first)
-            minStk.push({val, 1});
-        else if (val == minStk.top().first)
-            minStk.top().second++;
+        val = min(val, minStk.empty() ? val : minStk.top());
+        minStk.push(val);
     }
     
     void pop() {
-        if (stk.top() == minStk.top().first) {
-            minStk.top().second--;
-            if (minStk.top().second == 0)   minStk.pop();
-        }
         stk.pop();
+        minStk.pop();
     }
     
     int top() {
-        return stk.top();
+        return stk.top();        
     }
     
     int getMin() {
-        return minStk.top().first;
+        return minStk.top();
     }
 };
