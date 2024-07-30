@@ -7,30 +7,31 @@ class Solution {
 public:
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
         vector<vector<int>> ans;
-        vector<int> set;
-
+        vector<int> cur;
         sort(candidates.begin(), candidates.end());
-        dfs(candidates, target, 0, 0, set, ans);
-
-        return ans;        
+        bts(candidates, target, 0, cur, ans);
+        return ans;    
     }
 
-    void dfs(vector<int>& candidates, int target, int sum, int start, vector<int> &set, vector<vector<int>> &ans)
+    void bts(vector<int> &nums, int target, int idx, vector<int> &cur, vector<vector<int>> &ans)
     {
-        if (sum > target)   return ;
-        if (target == sum)
+        if (target == 0)
         {
-            ans.push_back(set);
+            ans.push_back(cur);
             return ;
         }
+        if (target < 0 || idx >= nums.size()) return ;
 
-        for (int i = start; i < candidates.size(); i++)
+        // Bruth force
+        for (int prev = -1, i = idx; i < nums.size(); i++)
         {
-            if (i > start && candidates[i] == candidates[i-1])
-                continue;
-            set.push_back(candidates[i]);
-            dfs(candidates, target, sum + candidates[i], i+1, set, ans);
-            set.pop_back();
+            if (prev == nums[i]) continue;
+            cur.push_back(nums[i]);
+            bts(nums, target-nums[i], i+1, cur, ans);
+            cur.pop_back();
+            prev = nums[i];
         }
     }
 };
+
+
