@@ -1,11 +1,12 @@
 
 #include <stack>
+#include <string>
 using namespace std;
 
 class Solution {
 public:
     bool isValid(string s) {
-        stack<char> st;
+        stack<char> stk;
 
         for (char c : s)
         {
@@ -14,22 +15,21 @@ public:
             case '(':
             case '{':
             case '[':
-                st.push(c);
+                stk.push(c);
                 break;
             case ')':
             case '}':
             case ']':
-                if (st.empty()) return false;
-                if (c == ')' && st.top() == '(')
-                    st.pop();
-                else if (c == '}' && st.top() == '{')
-                    st.pop();
-                else if (c == ']' && st.top() == '[')
-                    st.pop();
-                else
+                if (stk.empty()) return false;
+                if ((c == ')' && stk.top() != '(') ||
+                    (c == '}' && stk.top() != '{') ||
+                    (c == ']' && stk.top() != '['))
                     return false;
+                stk.pop();
+                break;                
             }
         }
-        return st.empty();  // when input is '(' only
+        return stk.empty();
     }
 };
+

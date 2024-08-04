@@ -25,3 +25,23 @@ public:
         return 1 + max(left, right);
     }
 };
+
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        int maxDiameter = 0;
+        dfs(root, maxDiameter);
+        return maxDiameter;        
+    }
+    
+    int dfs(TreeNode *n, int &maxDiameter)
+    {
+        if (!n) return 0;
+        int lDiameter = dfs(n->left, maxDiameter);
+        int rDiameter = dfs(n->right, maxDiameter);
+        
+        maxDiameter = max(maxDiameter, lDiameter+rDiameter);
+        return max(lDiameter, rDiameter) + 1;
+    }
+};
+

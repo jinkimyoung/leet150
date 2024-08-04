@@ -32,19 +32,16 @@ public:
         int m = s.length();
         vector<bool> dp(m+1, false);
         dp[m] = true;
-        
+
         for (int i = m; i >= 0; i--)
         {
             if (!dp[i]) continue;
-            
+
             for (string word : wordDict)
             {
                 int n = word.length();
-                if (i - n >= 0)
-                {
-                    if (s.substr(i-n, n) == word)
-                        dp[i-n] = true;
-                }
+                if (i-n >= 0 && s.substr(i-n, n) == word)
+                    dp[i-n] = true;
             }
         }
         return dp[0];

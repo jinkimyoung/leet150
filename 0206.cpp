@@ -8,7 +8,7 @@ struct ListNode {
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode *cur = head, *prev = NULL, *next = NULL;
+        ListNode *cur = head, *prev = nullptr, *next;
 
         while (cur)
         {
@@ -20,3 +20,4 @@ public:
         return prev;
     }
 };
+

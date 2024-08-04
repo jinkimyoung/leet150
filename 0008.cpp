@@ -8,31 +8,32 @@ class Solution {
 public:
     int myAtoi(string s) 
     {
-        int ans = 0, i = 0, minus = 0, m = s.length();
+        int m = s.length(), i = 0;
+        int r = 0, d = 0, sign = 1;
 
         while (i < m && s[i] == ' ')
             i++;
-
+        
         if (i < m && s[i] == '+')
         {
-            minus = 0;
-            i++;
+            i++;        
+            sign = 1;
         }
-        else if (s[i] == '-')
+        else if (i < m && s[i] == '-')
         {
-            minus = 1;
-            i++;
+            i++;        
+            sign = -1;
         }
 
-        while (s[i] >= '0' && s[i] <= '9' && i < m)
+        while (i < m && s[i] >= '0' && s[i] <= '9')
         {
-            if ((ans > INT_MAX / 10) || (ans == INT_MAX / 10 && (s[i]-'0') > INT_MAX % 10))
-            {
-                return (minus == 1 ? INT_MIN : INT_MAX);
-            }
-            ans = ans * 10 + (s[i] - '0');
+            d = s[i] - '0';
             i++;
+            if (r > (INT_MAX/10) || r == (INT_MAX/10) && d > (INT_MAX%10))
+                return sign > 0 ? INT_MAX : INT_MIN;
+            r = r * 10 + d;
         }
-        return minus == 1 ? -1 * ans : ans;  
+        return sign * r;
     }
 };
+

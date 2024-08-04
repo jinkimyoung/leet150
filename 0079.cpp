@@ -1,33 +1,33 @@
 
 #include <vector>
+#include <string>
 using namespace std;
 
 class Solution {
 public:
-    bool exist(vector<vector<char>>& board, string word) 
-    {
+    bool exist(vector<vector<char>>& board, string word) {
         int m = board.size(), n = board[0].size();
         for (int i = 0; i < m; i++)
             for (int j = 0; j < n; j++)
-                if (word[0] == board[i][j])
-                    if (dfs(i, j, m, n, board, 0, word))
+                if (board[i][j] == word[0])
+                    if (bts(board, i, j, m, n, 0, word))
                         return true;
         return false;
     }
-
-    bool dfs(int i, int j, int m, int n, vector<vector<char>> &b, int idx, string s)
+    
+    bool bts(vector<vector<char>> &b, int i, int j, int m, int n, int idx, string &s)
     {
         if (i < 0 || i >= m || j < 0 || j >= n) return false;
-        if (s[idx] != b[i][j])    return false; 
-        if (idx == s.length() - 1)  return true; // ['a']
-
+        if (b[i][j] != s[idx]) return false;
+        if (s.length()-1 == idx) return true;
+        
         char c = b[i][j];
         b[i][j] = '#';
-        if (dfs(i+1, j, m, n, b, idx+1, s) || dfs(i, j+1, m, n, b, idx+1, s) ||
-            dfs(i-1, j, m, n, b, idx+1, s) || dfs(i, j-1, m, n, b, idx+1, s))
+        if (bts(b, i+1, j, m, n, idx+1, s) || bts(b, i, j+1, m, n, idx+1, s) ||
+            bts(b, i-1, j, m, n, idx+1, s) || bts(b, i, j-1, m, n, idx+1, s))
             return true;
-        b[i][j] = c;    
-        return false;    
+        b[i][j] = c;
+        return false;
     }
 };
 

@@ -68,6 +68,8 @@ public:
 };
 
 
+// DP - 0/1 Knapsack problem : sum : big numer -> num
+// (sum + target) / 2;
 
 class Solution {
 public:

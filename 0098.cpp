@@ -25,22 +25,18 @@ public:
 
 
 class Solution {
- public:
-  bool isValidBST(TreeNode* root) {
-    return isValidBST(root, nullptr, nullptr);
-  }
-
- private:
-  bool isValidBST(TreeNode* root, TreeNode* minNode, TreeNode* maxNode) {
-    if (root == nullptr)
-      return true;
-    if (minNode && root->val <= minNode->val)
-      return false;
-    if (maxNode && root->val >= maxNode->val)
-      return false;
-
-    return isValidBST(root->left, minNode, root) &&
-           isValidBST(root->right, root, maxNode);
-  }
+public:
+    bool isValidBST(TreeNode* root) {
+        return dfs(root, nullptr, nullptr);
+    }
+    
+    bool dfs(TreeNode *cur, TreeNode *minNode, TreeNode *maxNode)
+    {
+        if (!cur) return true;
+        if (minNode && minNode->val >= cur->val) return false;
+        if (maxNode && maxNode->val <= cur->val) return false;        
+        
+        return dfs(cur->left, minNode, cur) && dfs(cur->right, cur, maxNode);
+    }
 };
 

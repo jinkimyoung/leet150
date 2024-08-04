@@ -8,22 +8,19 @@ using namespace std;
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        unordered_map<string, vector<string>> mp;
         vector<vector<string>> ans;
+        unordered_map<string, vector<string>> mp;
 
-        for (string str : strs)
+        for (string s : strs)
         {
-            string key = str;
-            sort(key.begin(), key.end());
-            mp[key].push_back(str);
+            string k = s;
+            sort(k.begin(), k.end());
+            mp[k].push_back(s);
         }
-        for (auto elem : mp)
-            ans.push_back(elem.second);
+
+        for (auto e : mp)
+            ans.push_back(e.second);
         return ans;
     }
 };
 
-int main(void)
-{
-    return 0;
-}
