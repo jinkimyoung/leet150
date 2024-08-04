@@ -54,3 +54,27 @@ public:
         return result;
     }
 };
+
+
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int, int> mp;
+        for (int n : nums)
+            mp[n]++;
+        
+        priority_queue<pair<int,int>> maxQ;
+        for (auto e : mp)
+            maxQ.push({e.second, e.first});
+        
+        vector<int> ans;
+        while (k > 0)
+        {
+            k--;
+            ans.push_back(maxQ.top().second);
+            maxQ.pop();
+        }
+        return ans;
+    }
+};

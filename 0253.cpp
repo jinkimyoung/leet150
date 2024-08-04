@@ -37,3 +37,26 @@ public:
     }
 };
 
+
+#include <map>
+using namespace std;
+
+class Solution {
+public:
+    int minMeetingRooms(vector<vector<int>>& intervals) {
+        map<int, int> mp;
+
+        for (auto itv : intervals)
+        {
+            mp[itv[0]]++;
+            mp[itv[1]]--;            
+        }
+        int room = 0, maxRoom = 0;
+        for (auto e : mp)
+        {
+            room = room + e.second;
+            maxRoom = max(maxRoom, room);
+        }
+        return maxRoom;
+    }
+};
