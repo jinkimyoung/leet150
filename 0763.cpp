@@ -2,28 +2,29 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
 using namespace std;
 
 class Solution {
 public:
     vector<int> partitionLabels(string s) {
-        vector<int> ans;
-        int n = s.length(), pos[26] = {0};
+        unordered_map<char, int> mp;
+        vector<int> res;
 
-        for (int i = 0; i < n; i++)
-            pos[s[i]-'a'] = i;
-        
-        int end = 0, size = 0;
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < s.length(); i++)
+            mp[s[i]] = i;
+
+        for (int end = 0, size = 0, i = 0; i < s.length(); i++)
         {
             size++;
-            end = max(end, pos[s[i]-'a']);
+            end = max(end, mp[s[i]]);
             if (end == i)
             {
-                ans.push_back(size);
+                res.push_back(size);
                 size = 0;
             }
         }
-        return ans;        
+        return res;
     }
 };
+
